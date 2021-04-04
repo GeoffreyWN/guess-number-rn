@@ -9,13 +9,13 @@ export default function App() {
   const [userNumber, setUserNumber] = useState()
 
   const startGameHandler = (selectedNumber) => {
-    setUserNumber(setUserNumber)
+    setUserNumber(selectedNumber)
   }
 
-  let content = <StartGameScreen onStartGame={startGameHandler} />
+  let content = (<StartGameScreen onStartGame={startGameHandler} />)
 
   if (userNumber) {
-    content = <GameScreen userChoice={userNumber} />
+    content =( <GameScreen userChoice={userNumber} />)
   }
 
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import React, { useState, useRef } from 'react'
+import { StyleSheet, Text, View, Button, Alert } from 'react-native'
 import Card from '../components/Card'
 import NumberContainer from '../components/NumberContainer'
 
@@ -19,13 +19,33 @@ const generateRandomBetween = (min, max, exclude) => {
 const GameScreen = ({ userChoice }) => {
     const [currentGuess, setCurrentGuess] = useState(generateRandomBetween(1, 100, userChoice))
 
+    const currentLow = useRef(1)
+    const currentHigh = useRef(100)
+
+    const nextGuessHandler = (direction) => {
+        if ((direction === 'lower' && currentGuess < userChoice) || (direction === 'greater' && currentGuess > userChoice)) {
+            Alert.alert('Trynna be Smart?!', 'We both know that\'s wrong', [{ text: 'Sorry!', style: 'cancel'}])
+            return
+        }
+
+        if (direction === 'lower') {
+            currentHigh.current = currentGuess
+        } else {
+            currentLow.current = currentGuess
+        }
+
+        const nextNumber = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess)
+
+        setCurrentGuess(nextNumber)
+    }
+
     return (
         <View style={styles.screen}>
             <Text>Opponent's Guess</Text>
             <NumberContainer>{currentGuess}</NumberContainer>
             <Card style={styles.buttonContainer}>
-                <Button title="LOWER" onPress={() => { }} />
-                <Button title="Greater" onPress={() => { }} />
+                <Button title="LOWER" onPress={() => nextGuessHandler('lower')} />
+                <Button title="Greater" onPress={nextGuessHandler.bind(this, 'greater')} />
             </Card>
         </View>
     )
