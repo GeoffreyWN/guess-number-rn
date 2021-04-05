@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, Ale
 import BodyText from '../components/BodyText'
 import Card from '../components/Card'
 import Input from '../components/Input'
+import MainButton from '../components/MainButton'
 import NumberContainer from '../components/NumberContainer'
 import TitleText from '../components/TitleText'
 import Colors from '../constants/colors'
@@ -40,7 +41,7 @@ const StartGameScreen = ({ onStartGame }) => {
             <Card style={styles.summaryContainer}>
                 <BodyText>You selected</BodyText>
                 <NumberContainer>{selectedNumber}</NumberContainer>
-                <Button title='Start Game' onPress={() => onStartGame(selectedNumber)} />
+                <MainButton onPressBtn={() => onStartGame(selectedNumber)}>Start Game</MainButton>
             </Card>
         )
     }
