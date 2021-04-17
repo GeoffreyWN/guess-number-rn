@@ -1,14 +1,12 @@
-# guess-number-rn
-A Mobile application 'Guess a number' game based on React Native
+ #A Mobile application 'Guess a number' game based on React Native
 ## Getting Started
 
-###: Steps
 1. clone the repo
 2. cd into repo
 3. npm install
 4. npm start
 
-run on app simulator ( android or ios) or real device using expo 
+run on an emulator ( android or ios) or real device using expo app
 
 Enjoy...
 
