@@ -1,4 +1,4 @@
- #A Mobile application 'Guess a number' game based on React Native
+ # A Mobile application 'Guess a number' game based on React Native
 ## Getting Started
 
 1. clone the repo
