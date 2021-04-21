@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, StyleSheet, Text, View, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native'
 import BodyText from '../components/BodyText'
 import Card from '../components/Card'
@@ -12,6 +12,7 @@ const StartGameScreen = ({ onStartGame }) => {
     const [enteredValue, setEnteredValue] = useState('')
     const [confirmed, setConfirmed] = useState(false)
     const [selectedNumber, setSelectedNumber] = useState()
+    const [buttonwidth, setButtonwidth] = useState(Dimensions.get('window').width / 4)
 
     const numberInputHandler = inputText => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''))
@@ -21,6 +22,16 @@ const StartGameScreen = ({ onStartGame }) => {
         setEnteredValue('')
         setConfirmed(false)
     }
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setButtonwidth(Dimensions.get('window').width / 4)
+        }
+        Dimensions.addEventListener('change', updateLayout)
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout)
+        }
+    })
 
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue)
@@ -55,10 +66,10 @@ const StartGameScreen = ({ onStartGame }) => {
                     <Input style={styles.input} blurOnSubmit autoCapitalize='none' autoCorrect={false} keyboardType="number-pad" maxLength={2} onChangeText={numberInputHandler} value={enteredValue} />
 
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
+                        <View style={{width: buttonwidth}}>
                             <Button title="Reset" onPress={resetInputHandler} color={Colors.accent} />
                         </View>
-                        <View style={styles.button}>
+                        <View style={{width: buttonwidth}}>
                             <Button title="Confirm" onPress={confirmInputHandler} color={Colors.primary} />
                         </View>
                     </View>
@@ -96,9 +107,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 15
     },
-    button: {
-        width: Dimensions.get('window').width / 4,
-    },
+    // button: {
+    //     width: Dimensions.get('window').width / 4,
+    // },
     input: {
         width: 50,
         textAlign: 'center'
